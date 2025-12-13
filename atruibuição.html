@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal • Atribuição</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body data-page="atribuicao">
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>📌 Atribuição</h1>
+          <p>Documentos e comunicados publicados.</p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Navegação">
+        <a class="btn" href="index.html" data-nav="home">Início</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Conteúdo</h2>
+      <p>Use a busca para encontrar rápido e clique para abrir/baixar.</p>
+      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+        <span class="badge info">Público: somente visualização</span>
+      </div>
+    </section>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h4>Lista de materiais</h4>
+          <div class="help">Arquivos e links (Drive/YouTube etc.).</div>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <input id="searchInput" type="text" placeholder="Buscar por título ou nome..." />
+          <button class="btn small" id="btnClear" type="button">Limpar</button>
+        </div>
+      </div>
+
+      <div class="panel-body" style="padding:0;">
+        <table class="table" aria-label="Tabela de documentos">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Status</th>
+              <th style="text-align:right;">Ação</th>
+            </tr>
+          </thead>
+          <tbody id="docsList"></tbody>
+        </table>
+
+        <div id="emptyState" style="display:none; padding:16px;">
+          <div class="inline-note">
+            Ainda não há publicações nesta seção.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const SECTION_KEY = "atribuicao";
+        const input = document.getElementById('searchInput');
+        const clear = document.getElementById('btnClear');
+        const render = () => window.renderDocsForSection(SECTION_KEY);
+
+        input.addEventListener('input', render);
+        clear.addEventListener('click', () => { input.value = ''; render(); });
+        render();
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js?v=1"></script>
+</body>
+
+</body>
+
+</html>

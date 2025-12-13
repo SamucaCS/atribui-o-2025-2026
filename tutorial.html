@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal • Tutorial</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body data-page="tutorial">
+  <div class="container">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>🎥 Tutorial</h1>
+          <p>Vídeos e passo a passo publicados.</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="btn" href="index.html" data-nav="home">Início</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Conteúdo</h2>
+      <p>Abra vídeos (links) e baixe arquivos de apoio.</p>
+      <div style="margin-top:14px;">
+        <span class="badge info">Público: somente visualização</span>
+      </div>
+    </section>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h4>Lista de materiais</h4>
+          <div class="help">Links (YouTube/Drive) e arquivos.</div>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <input id="searchInput" type="text" placeholder="Buscar por título ou nome..." />
+          <button class="btn small" id="btnClear" type="button">Limpar</button>
+        </div>
+      </div>
+
+      <div class="panel-body" style="padding:0;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Status</th>
+              <th style="text-align:right;">Ação</th>
+            </tr>
+          </thead>
+          <tbody id="docsList"></tbody>
+        </table>
+
+        <div id="emptyState" style="display:none; padding:16px;">
+          <div class="inline-note">Ainda não há publicações nesta seção.</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js?v=1"></script>
+</body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const SECTION_KEY = "tutorial";
+    const input = document.getElementById('searchInput');
+    const clear = document.getElementById('btnClear');
+    const render = () => window.renderDocsForSection(SECTION_KEY);
+
+    input.addEventListener('input', render);
+    clear.addEventListener('click', () => { input.value = ''; render(); });
+    render();
+  });
+</script>
+</body>
+
+</html>

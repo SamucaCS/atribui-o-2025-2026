@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supervisor • Publicar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body data-page="cadastro">
+  <div class="container">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Atribuição • Publicação</h1>
+          <p>Publicar documentos e vídeos no portal.</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="btn" href="index.html">Voltar ao Início</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="wizardWrap">
+      <h2>Cadastro de documentos</h2>
+      <p>
+        Passo a passo simples para publicar: escolha a seção, informe título/data e envie arquivo ou link.
+      </p>
+
+      <div style="margin-top:14px;">
+        <div class="stepper">
+          <div class="step" data-step="1">
+            <div class="n">1</div>
+            <div>
+              <strong>Seção</strong>
+              <div class="help">Onde vai aparecer</div>
+            </div>
+          </div>
+
+          <div class="step" data-step="2">
+            <div class="n">2</div>
+            <div>
+              <strong>Título e data</strong>
+              <div class="help">Informações básicas</div>
+            </div>
+          </div>
+
+          <div class="step" data-step="3">
+            <div class="n">3</div>
+            <div>
+              <strong>Arquivo ou link</strong>
+              <div class="help">PDF, Word, Excel, vídeo…</div>
+            </div>
+          </div>
+
+          <div class="step" data-step="4">
+            <div class="n">4</div>
+            <div>
+              <strong>Revisão</strong>
+              <div class="help">Conferir e salvar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wizard" id="wizardPanel" style="margin-top:14px;">
+
+      <div class="panel">
+        <div class="panel-head">
+          <h4>Publicar</h4>
+          <div class="pills">
+            <button class="btn small" id="btnPrev" type="button">← Voltar</button>
+            <button class="btn small primary" id="btnNext" type="button">Avançar →</button>
+            <button class="btn small primary" id="btnSave" type="button" style="display:none;">Salvar</button>
+          </div>
+        </div>
+
+        <div class="panel-body">
+
+          <div class="step-panel" data-step="1">
+            <div class="section-title" style="margin:0 0 10px;">
+              <h3>1) Seção</h3>
+              <p>Escolha onde publicar.</p>
+            </div>
+
+            <input type="hidden" id="docSection" value="" />
+
+            <div class="big-choices">
+              <div class="choice" tabindex="0" data-value="atribuicao">
+                <p class="title"> Atribuição</p>
+                <p class="desc">Publica na página de Atribuição.</p>
+              </div>
+
+              <div class="choice" tabindex="0" data-value="edital">
+                <p class="title"> Edital</p>
+                <p class="desc">Publica na página de Edital.</p>
+              </div>
+
+              <div class="choice" tabindex="0" data-value="conselho">
+                <p class="title"> Conselho</p>
+                <p class="desc">Publica na página de Conselho.</p>
+              </div>
+
+              <div class="choice" tabindex="0" data-value="tutorial">
+                <p class="title"> Tutorial</p>
+                <p class="desc">Publica na página de Tutorial.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-panel" data-step="2" style="display:none;">
+            <div class="section-title" style="margin:0 0 10px;">
+              <h3>2) Título e data</h3>
+              <p>Título claro facilita muito.</p>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="docTitle">Título</label>
+                <input id="docTitle" type="text" placeholder="Ex.: Edital 01/2026 – Anexo I" />
+              </div>
+
+              <div class="field">
+                <label for="docDate">Data</label>
+                <input id="docDate" type="date" />
+              </div>
+            </div>
+          </div>
+
+          <div class="step-panel" data-step="3" style="display:none;">
+            <div class="section-title" style="margin:0 0 10px;">
+              <h3>3) Arquivo ou link</h3>
+              <p>Arquivo (PDF/Word/Excel) ou link (Drive/YouTube).</p>
+            </div>
+
+            <input type="hidden" id="docMode" value="file" />
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+              <button class="btn small primary mode-tab" type="button" data-mode="file">📎 Enviar arquivo</button>
+              <button class="btn small mode-tab" type="button" data-mode="link">🔗 Colar link</button>
+              <span class="badge">Recomendação: vídeos por link</span>
+            </div>
+
+            <div id="fileWrap">
+              <div id="dropZone" class="drop compact" tabindex="0" role="button" aria-label="Selecionar arquivo">
+                <div class="drop-left">
+                  <strong>📎 Selecionar arquivo</strong>
+                  <div class="help">Clique aqui (ou no botão ao lado).</div>
+                </div>
+
+                <button class="btn small primary" id="btnChooseFile" type="button">Escolher</button>
+              </div>
+
+
+              <input id="docFile" type="file" style="display:none;"
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.mp4,.mov,.avi,.mkv,.jpg,.jpeg,.png,.txt,.zip,.rar,.7z" />
+
+              <div style="margin-top:12px;">
+                <div id="filePill" class="file-pill" style="display:none;">
+                  <span>✅</span>
+                  <span class="name" id="fileName"></span>
+                  <span class="help" id="fileMeta"></span>
+                </div>
+
+                <div id="fileProg" style="margin-top:10px; display:none;">
+                  <div class="help" style="margin-bottom:6px;">Lendo arquivo…</div>
+                  <div class="progress">
+                    <div id="fileProgBar"></div>
+                  </div>
+                </div>
+
+                <div id="fileWarn" class="help" style="margin-top:10px; display:none;"></div>
+              </div>
+            </div>
+
+            <div id="linkWrap" style="display:none;">
+              <div class="field">
+                <label for="docLink">Link</label>
+                <input id="docLink" type="url" placeholder="Cole aqui (Drive, OneDrive, YouTube etc.)" />
+                <div class="help">Confirme se o link está com permissão de acesso.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-panel" data-step="4" style="display:none;">
+            <div class="section-title" style="margin:0 0 10px;">
+              <h3>4) Revisão</h3>
+              <p>Confirme e salve.</p>
+            </div>
+
+            <div id="reviewBox"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h4>Publicações recentes</h4>
+          <span class="badge warn">Neste navegador</span>
+        </div>
+
+        <div class="panel-body" style="padding:0;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Tipo</th>
+                <th>Arquivo/Link</th>
+                <th style="text-align:right;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="myUploadsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js?v=10"></script>
+  <script src="cadastro.js?v=10"></script>
+
+</body>
+
+
+</body>
+
+</html>
